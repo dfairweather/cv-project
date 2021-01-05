@@ -1,0 +1,181 @@
+@font-face {
+    font-family: 'Steelfish';
+    src: url('steelfishrg.otf');
+
+    
+}
+
+@font-face {
+    font-family: 'NotoSansJP-Bold';
+    src: url('NotoSansJP-Bold.otf');
+}
+
+@font-face {
+    font-family: 'NotoSansJP-Regular';
+    src: url('NotoSansJP-Regular.otf');
+}
+
+#root {
+    width: 1000px;
+    margin: auto;  
+}
+
+.app {
+
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+
+}
+body{
+   color: #454545;
+   font-family: 'NotoSansJP-Regular';
+   background-image: linear-gradient(to bottom left,#c7c7c7, #898989  )
+   
+}
+.sidebar {
+    padding-left: 60px;
+
+    background-color: #c7c7c7;
+
+    min-height: 95rem;
+}
+.main {
+
+    padding-left: 60px;
+    padding-right: 60px;
+    background-color: #e8e8e8;
+
+}
+
+input {
+    color:#454545;
+}
+
+.sidebar .editable:hover {
+    background: #aaaaaa;
+}
+
+.name  {
+    font-family: 'Steelfish';
+    font-size: 4rem;
+    display: inline;
+}
+
+.name input {
+    font-family: 'Steelfish';
+    font-size: 2rem;
+    display: inline;
+}
+
+
+.name:hover{
+
+    background: #aaaaaa;
+}
+/* .material-icons {
+    opacity: 0;
+} */
+
+
+
+.name:hover .material-icons{
+    opacity: 1;
+}
+.add-school:hover {
+    background: #aaaaaa;
+    cursor: pointer;
+}
+
+.school-form input{
+
+    width: 95%;
+    display: block;
+}
+
+.section {
+    font-family: 'NotoSansJP-Bold';
+    font-size: 1.2rem;
+}
+
+
+.profile p:hover {
+    background:#d7d7d7;
+}
+
+.profile:hover .material-icons {
+    opacity: 1;
+}
+
+.bullet-form {
+    display: inline;
+}
+
+.add-button {
+    position: relative;
+    top: 7px;
+    margin-left: 4px;
+}
+
+p {
+    display: inline;
+}
+
+/* Experience Section */
+
+.add-job:hover {
+    background:#d7d7d7;
+    cursor: pointer;
+}
+.job-form input{
+    margin: 10px;
+    width: 50%;
+    display: block;
+}
+textarea {
+    width: 60%;
+    height: 150px;
+    font-family: 'NotoSansJP-Regular';
+    border-radius: 5px;
+    resize: none;
+
+    
+}
+
+
+.job-bullet:hover {
+    background:#d7d7d7;
+    cursor: pointer;
+}
+
+.job-bullet:hover .delete-button,
+.skills-bullet:hover .delete-button{
+    opacity: .3;
+    cursor: pointer;
+}
+
+
+
+.delete-button {
+    position: relative;
+    top: 5px;
+    margin-left: 5px;
+    opacity: .2;
+}
+
+.job-bullet:hover .delete-button:hover {
+    opacity: 1;
+}
+
+/* .company-year .editable {
+    display:inline;
+} */
+
+.editable {
+    cursor: pointer;
+   
+}
+
+.main .editable:hover {
+    background:#d7d7d7;
+}
+
