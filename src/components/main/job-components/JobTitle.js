@@ -7,7 +7,7 @@ function JobTitle(props) {
                 text={props.text.toUpperCase()} 
                 field = {"title"} 
                 jobId={props.jobId} 
-                handleJobEdit={props.handleJobEdit}>
+                handleEdit={props.handleEdit}>
             </Editable>
         </h4>
     );

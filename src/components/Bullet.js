@@ -6,10 +6,16 @@ function Bullet(props) {
         <li 
             className="skills-bullet">
             <Editable 
-            jobId={props.id}
-            handleJobEdit={props.handleEditSkill}
-            text={props.text}></Editable>
-            <DeleteButton id={props.id} handleDelete={props.handleDelete}></DeleteButton>
+                jobId={props.id}
+                handleEdit={props.handleEdit}
+                text={props.text}
+                field={props.field}
+            ></Editable>
+            <DeleteButton 
+                id={props.id} 
+                bulletId={props.field}
+                handleDelete={props.handleDelete}
+            ></DeleteButton>
         </li>
     );
   }

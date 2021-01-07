@@ -179,3 +179,6 @@ textarea {
     background:#d7d7d7;
 }
 
+.material-icons {
+    cursor: pointer;
+}

@@ -9,7 +9,7 @@ function Profile(props) {
             text={props.profile}
             field = {"description"} 
             jobId={props.jobId} 
-            handleJobEdit={props.handleEdit}>
+            handleEdit={props.handleEdit}>
         </Editable>
       </>
     );

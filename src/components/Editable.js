@@ -10,7 +10,7 @@ class Editable extends React.Component {
         }
     }
 
-    handleEdit = (e, updatedText) => {
+    handleBeingEdited = (e, updatedText) => {
 
         e.preventDefault();
         this.setState({
@@ -34,8 +34,8 @@ class Editable extends React.Component {
                     field={this.props.field}
                     jobId = {this.props.jobId}
                     text={this.props.text}
-                    handleEdit={this.handleEdit}
-                    handleJobEdit={this.props.handleJobEdit}
+                    handleBeingEdited={this.handleBeingEdited}
+                    handleEdit={this.props.handleEdit}
                     >
 
                 </EditableForm>
@@ -50,8 +50,8 @@ class Editable extends React.Component {
                     field={this.props.field}
                     jobId = {this.props.jobId}
                     text={this.props.text}
-                    handleEdit={this.handleEdit}
-                    handleJobEdit={this.props.handleJobEdit}
+                    handleBeingEdited={this.handleBeingEdited}
+                    handleEdit={this.props.handleEdit}
                     >
 
                     </EditableForm>

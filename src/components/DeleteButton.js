@@ -3,7 +3,7 @@ function DeleteButton(props) {
           <i 
             className="material-icons delete-button" 
             onClick={() => {
-              props.handleDelete(props.id, props.jobId)}
+              props.handleDelete(props.id, props.bulletId)}
             }>
             delete
             </i>

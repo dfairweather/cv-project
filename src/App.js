@@ -8,40 +8,99 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-       
-        name: 'Dexter Fairweather',
-        occupation: 'web developer',
-        schools: [this.addDefaultSchool()],
+        history: [{
+          name: 'Dexter Fairweather',
+          occupation: 'web developer',
+          profile: "Career objective here. Belina lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
+          contacts: {
+            email: "email addess",
+            phone: "phone number",
+            website: "website"
+          },
+          schools: [this.addDefaultSchool()],
+          skills: [],
+          jobs: [this.addDefaultJob()],
+        }],
+        displayIndex: 0,
         showSchoolForm: false,
-        skills: [],
-        contacts: {
-          email: "email addess",
-          phone: "phone number",
-          website: "website"
-        },
-        profile: "Career objective here. Belina lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
-        jobs: [this.addDefaultJob()],
         showJobForm: false
     }
   }
+
+  handleUndo = () => {
+    const index = this.state.displayIndex;
+    if (index) {
+        this.setState({
+        displayIndex: this.state.displayIndex - 1,
+      })
+    }
+
+    
+  }
   
+  handleRedo = () => {
+    const index = this.state.displayIndex;
+    if (index < this.state.history.length - 1) {
+        this.setState({
+        displayIndex: this.state.displayIndex + 1,
+      })
+    }
 
-  handleEditName =(name) => {
-    this.setState({name: name})
+    
   }
+
+  handleEditName = (name) => {
+    const history = this.state.history.slice(0, this.state.displayIndex + 1);
+    const current = history[history.length - 1];
+    this.setState({
+      history: history.concat([{
+        ...current,
+        name: name
+      }]),
+      displayIndex: history.length
+    })
+  }
+
   handleEditOccupation = (occupation) => {
-    this.setState({occupation: occupation})
+    const history = this.state.history.slice(0, this.state.displayIndex + 1);
+    const current = history[history.length - 1];
+    this.setState({
+      history: history.concat([{
+        ...current,
+        occupation: occupation
+      }]),
+      displayIndex: history.length
+    })
   }
 
 
-  handleEditProfile = (text) => {
-    this.setState({ profile: text })
+  handleEditProfile = (profile) => {
+    const history = this.state.history.slice(0, this.state.displayIndex + 1);
+    const current = history[history.length - 1];
+    this.setState({
+      history: history.concat([{
+        ...current,
+        profile: profile
+      }]),
+      displayIndex: history.length
+    })
   }
 
   handleEditContacts = (text, field) => {
-    const newContacts = {...this.state.contacts};
+    const history = this.state.history.slice(0, this.state.displayIndex + 1);
+    const current = history[history.length - 1];
+    const newContacts = {...current.contacts};
     newContacts[field] = text;
-    this.setState({contacts: newContacts})
+    this.setState({
+      history: history.concat([{
+        ...current,
+        contacts: newContacts
+      }]),
+      displayIndex: history.length
+    })
+
+
+
   }
 
 
@@ -57,8 +116,17 @@ class App extends React.Component {
   }
 
   addSchool(major, school, start, end) {
-    const adding = this.newSchool(major, school, start, end);
-    this.setState({schools: this.state.schools.concat(adding)})
+    const history = this.state.history.slice(0, this.state.displayIndex + 1);
+    const current = history[history.length - 1];
+    const newSchool = this.newSchool(major, school, start, end);
+    const schools = current.schools.slice();
+    this.setState({
+      history: history.concat([{
+        ...current,
+        schools: schools.concat(newSchool)
+      }]),
+      displayIndex: history.length
+    })
   }
 
   addDefaultSchool() {
@@ -70,17 +138,35 @@ class App extends React.Component {
   }
 
   handleEditSchool = (text, schoolId, field, ) => {
-    const newSchools = this.state.schools.slice()
-    const index = newSchools.findIndex(school => school.id === schoolId);
-    newSchools[index][field] = text;
-    this.setState({schools: newSchools})
+    const history = this.state.history.slice(0, this.state.displayIndex + 1);
+    const current = history[history.length - 1];
+    const index = current.schools.findIndex(school => school.id === schoolId);
+    // Deep copy of array within array
+    const schools = JSON.parse(JSON.stringify(current.schools));
+    schools[index][field] = text;
+    this.setState({
+      history: history.concat([{
+        ...current,
+        schools: schools
+      }]),
+      displayIndex: history.length
+    })
   }
+
   handleDeleteSchool = (schoolId) => {
-    const newSchools = this.state.schools.filter((school) => {
+    const history = this.state.history.slice(0, this.state.displayIndex + 1);
+    const current = history[history.length - 1];
+    const schools = current.schools.filter((school) => {
       return school.id !== schoolId;
     });
 
-    this.setState({schools: newSchools})
+    this.setState({
+      history: history.concat([{
+        ...current,
+        schools: schools
+      }]),
+      displayIndex: history.length
+    })
   }
 
   handleSubmitSchool = e => {
@@ -114,28 +200,54 @@ class App extends React.Component {
   
   handleAddSkill = (e) => {
     e.preventDefault();
+    const history = this.state.history.slice(0, this.state.displayIndex + 1);
+    const current = history[history.length - 1];
+    const skills = current.skills.slice()
     const skill = this.newBullet(e.target[0].value);
+    e.target[0].value = '';
     this.setState({
-      skills: this.state.skills.concat(skill)
+      history: history.concat([{
+        ...current,
+        skills: skills.concat(skill)
+      }]),
+      displayIndex: history.length
     })
   }
 
   handleDeleteSkill = (skillId) => {
-    const newSkills = this.state.skills.filter((skill) => {
-            return skill.bulletId !== skillId;
-    });
+    const history = this.state.history.slice(0, this.state.displayIndex + 1);
+    const current = history[history.length - 1];
+    const skills = current.skills.filter((skill) => {
+              return skill.bulletId !== skillId;
+      });
 
-    this.setState({skills: newSkills})
+    this.setState({
+      history: history.concat([{
+        ...current,
+        skills: skills
+      }]),
+      displayIndex: history.length
+    })
   }
 
   handleEditSkill = (text, skillId) => {
+    console.log(text, skillId);
+    const history = this.state.history.slice(0, this.state.displayIndex + 1);
+    const current = history[history.length - 1];
+    const index = current.skills.findIndex(skill => skill.bulletId === skillId);
+    // Deep copy of array within array
+    const skills = JSON.parse(JSON.stringify(current.skills));
+    skills[index]["text"] = text;
+    this.setState({
+      history: history.concat([{
+        ...current,
+        skills: skills
+      }]),
+      displayIndex: history.length
+    })
 
-    const newSkills = this.state.skills.slice()
-    const index = newSkills.findIndex(skill => skill.bulletId === skillId);
 
-
-    newSkills[index]["text"] = text
-    this.setState({skills: newSkills})
+   
   }
 
   newJob(title, company, start, end, description) {
@@ -155,9 +267,18 @@ class App extends React.Component {
   }
 
   addJob = (title, company, start, end, description) => {
-    const adding = this.newJob(title, company, start, end, description);
 
-    this.setState({jobs: this.state.jobs.concat(adding)})
+    const history = this.state.history.slice(0, this.state.displayIndex + 1);
+    const current = history[history.length - 1];
+    const newJob = this.newJob(title, company, start, end, description);
+    const jobs = current.jobs.slice();
+    this.setState({
+      history: history.concat([{
+        ...current,
+        jobs: jobs.concat(newJob)
+      }]),
+      displayIndex: history.length
+    })
 
 
   }
@@ -173,19 +294,36 @@ class App extends React.Component {
   }
 
   handleJobEdit = (text, jobId, field, ) => {
-    const newJobs = this.state.jobs.slice()
-    const index = newJobs.findIndex(job => job.id === jobId);
-    newJobs[index][field] = text;
-    this.setState({jobs: newJobs})
+    const history = this.state.history.slice(0, this.state.displayIndex + 1);
+    const current = history[history.length - 1];
+    const index = current.jobs.findIndex(job => job.id === jobId);
+    // Deep copy of array within array
+    const jobs = JSON.parse(JSON.stringify(current.jobs));
+    jobs[index][field] = text;
+    this.setState({
+      history: history.concat([{
+        ...current,
+        jobs: jobs
+      }]),
+      displayIndex: history.length
+    })
   }
 
 
   handleDeleteJob = (jobId) => {
-    const newJobs = this.state.jobs.filter((job) => {
+    const history = this.state.history.slice(0, this.state.displayIndex + 1);
+    const current = history[history.length - 1];
+    const jobs = current.jobs.filter((job) => {
       return job.id !== jobId;
     });
 
-    this.setState({jobs: newJobs})
+    this.setState({
+      history: history.concat([{
+        ...current,
+        jobs: jobs
+      }]),
+      displayIndex: history.length
+    })
   }
 
 
@@ -198,97 +336,137 @@ class App extends React.Component {
   }
 
   handleAddBullet = (e, jobId) => {
-    // Make new bullet object
     e.preventDefault();
     const text = e.target[0].value;
-    const newBullet = this.newBullet(text);
 
-    const newJobs = this.state.jobs.slice()
-    const index = newJobs.findIndex(job => job.id === jobId);
-    
-    newJobs[index].bullets.push(newBullet);
+    const history = this.state.history.slice(0, this.state.displayIndex + 1);
+    const current = history[history.length - 1];
+
+    const newBullet = this.newBullet(text);
+    const jobs = JSON.parse(JSON.stringify(current.jobs));
+    const index = jobs.findIndex(job => job.id === jobId);
+    jobs[index].bullets.push(newBullet)
+    e.target[0].value = '';
     this.setState({
-      jobs: newJobs,
-    }) 
+      history: history.concat([{
+        ...current,
+        jobs: jobs
+      }]),
+      displayIndex: history.length
+    })
   }
 
-  handleDeleteBullet = (bulletId, jobId) => {
-    const newJobs = this.state.jobs.slice()
-    const index = newJobs.findIndex(job => job.id === jobId);
+  handleDeleteBullet = (jobId, bulletId) => {
+    console.log(bulletId, jobId);
+    const history = this.state.history.slice(0, this.state.displayIndex + 1);
+    const current = history[history.length - 1];
 
-    const newBullets = newJobs[index].bullets.filter((bullet) => {
-            return bullet.bulletId !== bulletId;
+    const jobs = JSON.parse(JSON.stringify(current.jobs));
+    const index = jobs.findIndex(job => job.id === jobId);
+
+    const bullets = jobs[index].bullets.filter((bullet) => {
+      return bullet.bulletId !== bulletId;
     });
 
-    newJobs[index].bullets = newBullets;
-    this.setState({jobs: newJobs})
+    jobs[index].bullets = bullets;
+    this.setState({
+      history: history.concat([{
+        ...current,
+        jobs: jobs
+      }]),
+      displayIndex: history.length
+    })
   }
 
   handleEditBullet = (jobId, bulletId) => {
+    const history = this.state.history.slice(0, this.state.displayIndex + 1);
+    const current = history[history.length - 1];
 
-    const newJobs = this.state.jobs.slice()
-    const jobIndex = newJobs.findIndex(job => job.id === jobId);
 
-    const bulletIndex = newJobs[jobIndex].bullets.findIndex(bullet => bullet.bulletId === bulletId);
+    const jobs = JSON.parse(JSON.stringify(current.jobs));
+    const jobIndex = jobs.findIndex(job => job.id === jobId);
+
+    const bulletIndex = jobs[jobIndex].bullets.findIndex(bullet => bullet.bulletId === bulletId);
     
-    newJobs[jobIndex].bullets[bulletIndex].beingEdited = true;
+    jobs[jobIndex].bullets[bulletIndex].beingEdited = true;
 
-    this.setState({jobs: newJobs})
+    this.setState({
+      history: history.concat([{
+        ...current,
+        jobs: jobs
+      }]),
+      displayIndex: history.length
+    })
   }
 
-  handleUpdateBullet = (e, jobId, bulletId, newText) => {
-    e.preventDefault();
+  handleUpdateBullet = (newText, jobId, bulletId) => {
+   
+    console.log(jobId, bulletId, newText)
+    const history = this.state.history.slice(0, this.state.displayIndex + 1);
+    const current = history[history.length - 1];
 
-    const newJobs = this.state.jobs.slice()
-    const jobIndex = newJobs.findIndex(job => job.id === jobId);
 
-    const bulletIndex = newJobs[jobIndex].bullets.findIndex(bullet => bullet.bulletId === bulletId);
+    const jobs = JSON.parse(JSON.stringify(current.jobs));
+    const jobIndex = jobs.findIndex(job => job.id === jobId);
+
+    const bulletIndex = jobs[jobIndex].bullets.findIndex(bullet => bullet.bulletId === bulletId);
     
-    const updatedBullet = newJobs[jobIndex].bullets[bulletIndex]; 
-    newJobs[jobIndex].bullets[bulletIndex] = {
+    const updatedBullet = jobs[jobIndex].bullets[bulletIndex]; 
+    jobs[jobIndex].bullets[bulletIndex] = {
       text: newText,
       bulletId: updatedBullet.bulletId,
       beingEdited: false
     };
-    this.setState({jobs: newJobs})
+    this.setState({
+      history: history.concat([{
+        ...current,
+        jobs: jobs
+      }]),
+      displayIndex: history.length
+    })
   } 
 
 
 
   render() {
+      
+      const history = this.state.history.slice(0, this.state.displayIndex + 1);
+      const current = history[history.length - 1];
       return (
       <div className="app">
         <Sidebar 
           handleEditName={this.handleEditName}
           handleEditOccupation={this.handleEditOccupation}
           handleEditSchool={this.handleEditSchool}
-          name={this.state.name} 
-          occupation={this.state.occupation}
-          schools={this.state.schools} 
+          name={current.name} 
+          occupation={current.occupation}
+          schools={current.schools} 
           handleSubmitSchool={this.handleSubmitSchool}
           handleShowSchoolForm={this.handleShowSchoolForm}
           showSchoolForm={this.state.showSchoolForm}
           handleAddSkill={this.handleAddSkill}
           handleDeleteSkill={this.handleDeleteSkill}
           handleEditSkill={this.handleEditSkill}
-          skills={this.state.skills}
+          skills={current.skills}
           handleDeleteSchool={this.handleDeleteSchool}
         />
         <Main 
-          contacts={this.state.contacts}
+          contacts={current.contacts}
           handleEditContacts={this.handleEditContacts}
           handleAddBullet={this.handleAddBullet} 
           handleDeleteBullet={this.handleDeleteBullet} 
           handleEditBullet={this.handleEditBullet}
           handleUpdateBullet={this.handleUpdateBullet}
           handleSubmitJob={this.handleSubmitJob}
-          profile={this.state.profile}
+          profile={current.profile}
           handleEditProfile={this.handleEditProfile}
           handleJobEdit={this.handleJobEdit}
           handleDeleteJob={this.handleDeleteJob}
-          jobs={this.state.jobs}
+          jobs={current.jobs}
           handleShowJobForm={this.handleShowJobForm}
           showJobForm={this.state.showJobForm}
+          handleUndo={this.handleUndo}
+          handleRedo={this.handleRedo}
         />
       </div>
     );

@@ -7,19 +7,16 @@ import Section from '../Section';
 class Skills extends React.Component {
 
   renderSkill(skill) {
-
     return (
-
         <Bullet 
           className="skills-bullet"
           key ={skill.bulletId}
           text={skill.text}
           handleAddSkill={this.props.handleAddSKill}
           handleDelete={this.props.handleDeleteSkill}
-          handleEditSkill={this.props.handleEditSkill}
+          handleEdit={this.props.handleEditSkill}
           id={skill.bulletId}
-        >
-        </Bullet>
+        ></Bullet>
     )
   }
 

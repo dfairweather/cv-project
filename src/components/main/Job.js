@@ -1,10 +1,7 @@
 import React from 'react';
 import AddButton from '../AddButton';
 import DeleteButton from '../DeleteButton';
-
-import Bullet from './JobBullet';
-import EditForm from '../EditForm';
-
+import Bullet from '../Bullet';
 import JobTitle from './job-components/JobTitle';
 import Company from './job-components/Company';
 import JobDescription from './job-components/JobDescription';
@@ -12,45 +9,18 @@ import JobDescription from './job-components/JobDescription';
 class Job extends React.Component {
 
   renderBullet(bullet) {
-      if (!bullet.beingEdited) {
         return (
-                <li 
-                    className="job-bullet" 
-                    key={bullet.bulletId}>
-                    <Bullet 
-                    value={bullet} 
-                    handleEditBullet={this.props.handleEditBullet}
-                    jobId = {this.props.value.id} 
-                    bulletId={bullet.bulletId}
-                    />
-                    <DeleteButton 
-                      handleDelete = {this.props.handleDeleteBullet} 
-                      jobId = {this.props.value.id} 
-                      id={bullet.bulletId}/>
-                </li>
-        )
-      } else {
-          return (
-            <li 
-            className="job-bullet" 
-            key={bullet.bulletId}>
-            <EditForm 
-              handleSubmit={this.props.handleUpdateBullet}
-              value={bullet}
-              jobId={this.props.value.id} 
-              />
-              
-            <DeleteButton 
-              handleDelete = {this.handleDeleteBullet} 
-              jobId = {this.props.value.id} 
-              value={bullet.bulletId}/>
-            </li>
-        )
+          <Bullet
+            className="job-bullet"
+            key={bullet.bulletId}
+            text={bullet.text}
+            handleDelete={this.props.handleDeleteBullet}
+            handleEdit={this.props.handleUpdateBullet}
+            id={this.props.value.id}
+            field={bullet.bulletId}
+          ></Bullet>
+          )
       }
-      
-      
-    } 
-  
 
   renderBullets(bullets) {
     return bullets.map((bullet) => 
@@ -64,16 +34,20 @@ class Job extends React.Component {
         <JobTitle 
           text={title.toUpperCase()} 
           jobId={id} 
-          handleJobEdit={this.props.handleJobEdit}
+          handleEdit={this.props.handleJobEdit}
         ></JobTitle>
         <DeleteButton 
           id={id} 
           handleDelete={this.props.handleDeleteJob}
         ></DeleteButton>
-        <Company company={company.toUpperCase()} start={start} end={end} id={id} handleJobEdit={this.props.handleJobEdit}></Company>
+        <Company 
+          company={company.toUpperCase()} 
+          start={start} 
+          end={end} id={id} 
+          handleEdit={this.props.handleJobEdit}></Company>
         <JobDescription 
           text={description}
-          handleJobEdit={this.props.handleJobEdit}
+          handleEdit={this.props.handleJobEdit}
           jobId={id}></JobDescription>
         <ul>
             {this.renderBullets(bullets)}
