@@ -1,25 +1,26 @@
-import Editable from '../Editable';
+import Contact from './Contact';
 
 function Contacts(props) {
     return(
         <div className="contacts">
-            <Editable 
+            <Contact 
+                icon={"email"}
                 text={props.contacts.email}
                 handleEdit={props.handleEdit}
-                jobId={"email"}
-                />
-            <br></br>
-            <Editable 
+                category={"email"}
+            ></Contact>
+            <Contact 
+                icon={"phone_iphone"}
                 text={props.contacts.phone}
                 handleEdit={props.handleEdit}
-                jobId={"phone"}   
-            />
-            <br></br>
-            <Editable 
+                category={"phone"}
+            ></Contact>
+            <Contact 
+                icon={"language"}
                 text={props.contacts.website}
                 handleEdit={props.handleEdit}
-                jobId={"website"}    
-            />
+                category={"website"}
+            ></Contact>
             
         </div>
     )
