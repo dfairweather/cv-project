@@ -1,5 +1,6 @@
 function Bullet(props) {
     return (
+        
         <p  
             className="bullet-text"
             onClick={() => {
