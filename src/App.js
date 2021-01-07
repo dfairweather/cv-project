@@ -8,40 +8,103 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-       
-        name: 'Dexter Fairweather',
-        occupation: 'web developer',
-        schools: [this.addDefaultSchool()],
-        showSchoolForm: false,
+        history: [{
+          name: 'Dexter Fairweather',
+          occupation: 'web developer',
+          profile: "Career objective here. Belina lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
+          contacts: {
+            email: "email addess",
+            phone: "phone number",
+            website: "website"
+          },
+          schools: [this.addDefaultSchool()],
+        }],
+        displayIndex: 0,
+        
+        
         skills: [],
-        contacts: {
-          email: "email addess",
-          phone: "phone number",
-          website: "website"
-        },
-        profile: "Career objective here. Belina lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
+        
+        
         jobs: [this.addDefaultJob()],
+        showSchoolForm: false,
         showJobForm: false
     }
   }
+
+  handleUndo = () => {
+    const index = this.state.displayIndex;
+    if (index) {
+        this.setState({
+        displayIndex: this.state.displayIndex - 1,
+      })
+    }
+
+    
+  }
   
+  handleRedo = () => {
+    const index = this.state.displayIndex;
+    if (index < this.state.history.length - 1) {
+        this.setState({
+        displayIndex: this.state.displayIndex + 1,
+      })
+    }
 
-  handleEditName =(name) => {
-    this.setState({name: name})
+    
   }
+
+  handleEditName = (name) => {
+    const history = this.state.history.slice(0, this.state.displayIndex + 1);
+    const current = history[history.length - 1];
+    this.setState({
+      history: history.concat([{
+        ...current,
+        name: name
+      }]),
+      displayIndex: history.length
+    })
+  }
+
   handleEditOccupation = (occupation) => {
-    this.setState({occupation: occupation})
+    const history = this.state.history.slice(0, this.state.displayIndex + 1);
+    const current = history[history.length - 1];
+    this.setState({
+      history: history.concat([{
+        ...current,
+        occupation: occupation
+      }]),
+      displayIndex: history.length
+    })
   }
 
 
-  handleEditProfile = (text) => {
-    this.setState({ profile: text })
+  handleEditProfile = (profile) => {
+    const history = this.state.history.slice(0, this.state.displayIndex + 1);
+    const current = history[history.length - 1];
+    this.setState({
+      history: history.concat([{
+        ...current,
+        profile: profile
+      }]),
+      displayIndex: history.length
+    })
   }
 
   handleEditContacts = (text, field) => {
-    const newContacts = {...this.state.contacts};
+    const history = this.state.history.slice(0, this.state.displayIndex + 1);
+    const current = history[history.length - 1];
+    const newContacts = {...current.contacts};
     newContacts[field] = text;
-    this.setState({contacts: newContacts})
+    this.setState({
+      history: history.concat([{
+        ...current,
+        contacts: newContacts
+      }]),
+      displayIndex: history.length
+    })
+
+
+
   }
 
 
@@ -57,8 +120,17 @@ class App extends React.Component {
   }
 
   addSchool(major, school, start, end) {
-    const adding = this.newSchool(major, school, start, end);
-    this.setState({schools: this.state.schools.concat(adding)})
+    const history = this.state.history.slice(0, this.state.displayIndex + 1);
+    const current = history[history.length - 1];
+    const newSchool = this.newSchool(major, school, start, end);
+    const schools = current.schools.slice();
+    this.setState({
+      history: history.concat([{
+        ...current,
+        schools: schools.concat(newSchool)
+      }]),
+      displayIndex: history.length
+    })
   }
 
   addDefaultSchool() {
@@ -70,11 +142,21 @@ class App extends React.Component {
   }
 
   handleEditSchool = (text, schoolId, field, ) => {
-    const newSchools = this.state.schools.slice()
+    const history = this.state.history.slice(0, this.state.displayIndex + 1);
+    const current = history[history.length - 1];
+    const newSchools = current.schools.slice();
+    console.log(newSchools)
     const index = newSchools.findIndex(school => school.id === schoolId);
     newSchools[index][field] = text;
-    this.setState({schools: newSchools})
+    this.setState({
+      history: history.concat([{
+        ...current,
+        schools: newSchools
+      }]),
+      displayIndex: history.length
+    })
   }
+
   handleDeleteSchool = (schoolId) => {
     const newSchools = this.state.schools.filter((school) => {
       return school.id !== schoolId;
@@ -256,15 +338,18 @@ class App extends React.Component {
 
 
   render() {
+      
+      const history = this.state.history.slice(0, this.state.displayIndex + 1);
+      const current = history[history.length - 1];
       return (
       <div className="app">
         <Sidebar 
           handleEditName={this.handleEditName}
           handleEditOccupation={this.handleEditOccupation}
           handleEditSchool={this.handleEditSchool}
-          name={this.state.name} 
-          occupation={this.state.occupation}
-          schools={this.state.schools} 
+          name={current.name} 
+          occupation={current.occupation}
+          schools={current.schools} 
           handleSubmitSchool={this.handleSubmitSchool}
           handleShowSchoolForm={this.handleShowSchoolForm}
           showSchoolForm={this.state.showSchoolForm}
@@ -275,20 +360,22 @@ class App extends React.Component {
           handleDeleteSchool={this.handleDeleteSchool}
         />
         <Main 
-          contacts={this.state.contacts}
+          contacts={current.contacts}
           handleEditContacts={this.handleEditContacts}
           handleAddBullet={this.handleAddBullet} 
           handleDeleteBullet={this.handleDeleteBullet} 
           handleEditBullet={this.handleEditBullet}
           handleUpdateBullet={this.handleUpdateBullet}
           handleSubmitJob={this.handleSubmitJob}
-          profile={this.state.profile}
+          profile={current.profile}
           handleEditProfile={this.handleEditProfile}
           handleJobEdit={this.handleJobEdit}
           handleDeleteJob={this.handleDeleteJob}
           jobs={this.state.jobs}
           handleShowJobForm={this.handleShowJobForm}
           showJobForm={this.state.showJobForm}
+          handleUndo={this.handleUndo}
+          handleRedo={this.handleRedo}
         />
       </div>
     );

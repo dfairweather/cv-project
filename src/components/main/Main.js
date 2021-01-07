@@ -5,6 +5,8 @@ import Form from './Form';
 import React from 'react';
 import AddButton from '../AddButton';
 import Contacts from './Contacts';
+import UndoButton from '../UndoButton';
+import RedoButton from '../RedoButton';
 
 class Main extends React.Component {
 
@@ -29,6 +31,8 @@ class Main extends React.Component {
     }
     return (
       <div className="main">
+        <UndoButton onClick={this.props.handleUndo}></UndoButton>
+        <RedoButton onClick={this.props.handleRedo}></RedoButton>
         <Contacts 
           contacts={this.props.contacts}
           handleEdit={this.props.handleEditContacts}
