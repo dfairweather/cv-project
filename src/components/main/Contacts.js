@@ -5,19 +5,19 @@ function Contacts(props) {
         <div className="contacts">
             <Editable 
                 text={props.contacts.email}
-                handleJobEdit={props.handleEdit}
+                handleEdit={props.handleEdit}
                 jobId={"email"}
                 />
             <br></br>
             <Editable 
                 text={props.contacts.phone}
-                handleJobEdit={props.handleEdit}
+                handleEdit={props.handleEdit}
                 jobId={"phone"}   
             />
             <br></br>
             <Editable 
                 text={props.contacts.website}
-                handleJobEdit={props.handleEdit}
+                handleEdit={props.handleEdit}
                 jobId={"website"}    
             />
             

@@ -354,7 +354,7 @@ class App extends React.Component {
   }
 
   handleDeleteBullet = (bulletId, jobId) => {
-
+    console.log(bulletId, jobId);
     const history = this.state.history.slice(0, this.state.displayIndex + 1);
     const current = history[history.length - 1];
 
@@ -396,9 +396,9 @@ class App extends React.Component {
     })
   }
 
-  handleUpdateBullet = (e, jobId, bulletId, newText) => {
-    e.preventDefault();
-
+  handleUpdateBullet = (newText, jobId, bulletId) => {
+   
+    console.log(jobId, bulletId, newText)
     const history = this.state.history.slice(0, this.state.displayIndex + 1);
     const current = history[history.length - 1];
 

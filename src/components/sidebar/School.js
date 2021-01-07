@@ -10,7 +10,7 @@ function School(props) {
         jobId={id} 
         text={major}
         field={"major"}
-        handleJobEdit={props.handleEditSchool}
+        handleEdit={props.handleEditSchool}
       ></Editable>
       <DeleteButton 
         handleDelete={props.handleDeleteSchool}
@@ -23,14 +23,14 @@ function School(props) {
         text={school}
         jobId={id} 
         field={"school"}
-        handleJobEdit={props.handleEditSchool}
+        handleEdit={props.handleEditSchool}
       ></Editable>
       <br></br>
       <Editable 
         text={start}
         jobId={id}
         field={"start"}
-        handleJobEdit={props.handleEditSchool}
+        handleEdit={props.handleEditSchool}
       ></Editable>
       &nbsp;
       <span style={{ fontWeight: '200' }}>to</span>
@@ -39,7 +39,7 @@ function School(props) {
         text={end}
         jobId={id}
         field={"end"}
-        handleJobEdit={props.handleEditSchool}
+        handleEdit={props.handleEditSchool}
       ></Editable>
     </div>
   );

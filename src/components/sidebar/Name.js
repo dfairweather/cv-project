@@ -7,14 +7,14 @@ function Name(props) {
         <div className="name">
           <Editable
             text={props.name.toUpperCase()}
-            handleJobEdit={props.handleEditName}
+            handleEdit={props.handleEditName}
           />
         </div>
        
         <br></br>
         <Editable
           text={props.occupation.toUpperCase()}
-          handleJobEdit={props.handleEditOccupation}
+          handleEdit={props.handleEditOccupation}
         />
       </div>
     );

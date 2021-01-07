@@ -16,8 +16,8 @@ class Skills extends React.Component {
           text={skill.text}
           handleAddSkill={this.props.handleAddSKill}
           handleDelete={this.props.handleDeleteSkill}
-          handleEditSkill={this.props.handleEditSkill}
-          id={skill.bulletId}
+          handleEdit={this.props.handleEditSkill}
+          field={skill.bulletId}
         >
         </Bullet>
     )

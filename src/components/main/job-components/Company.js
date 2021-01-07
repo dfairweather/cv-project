@@ -6,7 +6,7 @@ function Company(props) {
           <Editable 
               text={props.company} 
               jobId={props.id} 
-              handleJobEdit={props.handleJobEdit} 
+              handleEdit={props.handleEdit} 
               field={'company'}>
           </Editable> 
           &nbsp;&nbsp;
@@ -15,7 +15,7 @@ function Company(props) {
           <Editable 
               text={props.start}
               jobId={props.id}
-              handleJobEdit={props.handleJobEdit}
+              handleEdit={props.handleEdit}
               field={'start'}>
           </Editable>
           &nbsp;
@@ -24,7 +24,7 @@ function Company(props) {
           <Editable 
               text={props.end}
               jobId={props.id}
-              handleJobEdit={props.handleJobEdit}
+              handleEdit={props.handleEdit}
               field={'end'}>
           </Editable> 
         </h4>

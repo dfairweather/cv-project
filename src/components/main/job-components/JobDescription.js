@@ -7,7 +7,7 @@ function JobDescription(props) {
                 text={props.text} 
                 field = {"description"} 
                 jobId={props.jobId} 
-                handleJobEdit={props.handleJobEdit}>
+                handleEdit={props.handleEdit}>
             </Editable>
         </div>
     );
