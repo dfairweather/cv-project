@@ -24,12 +24,14 @@ class EditableForm extends React.Component {
         return (
           <form 
             className="editable-form"
-            onSubmit={e => {this.props.handleBeingEdited(e, this.state.inputValue)
-            this.props.handleEdit(this.state.inputValue, this.props.jobId, this.props.field )
+            onSubmit={e => {
+              this.props.handleBeingEdited(e, this.state.inputValue)
+              this.props.handleEdit(this.state.inputValue, this.props.jobId, this.props.field )
             }}
             onChange={this.handleChange}
-            onBlur={e => {this.props.handleBeingEdited(e, this.state.inputValue)
-            this.props.handleEdit(this.state.inputValue, this.props.jobId, this.props.field )
+            onBlur={e => {
+              this.props.handleBeingEdited(e, this.state.inputValue)
+              this.props.handleEdit(this.state.inputValue, this.props.jobId, this.props.field )
             }}
             >
               <FormType

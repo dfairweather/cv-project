@@ -7,9 +7,7 @@ import Section from '../Section';
 class Skills extends React.Component {
 
   renderSkill(skill) {
-
     return (
-
         <Bullet 
           className="skills-bullet"
           key ={skill.bulletId}
@@ -17,9 +15,8 @@ class Skills extends React.Component {
           handleAddSkill={this.props.handleAddSKill}
           handleDelete={this.props.handleDeleteSkill}
           handleEdit={this.props.handleEditSkill}
-          field={skill.bulletId}
-        >
-        </Bullet>
+          id={skill.bulletId}
+        ></Bullet>
     )
   }
 

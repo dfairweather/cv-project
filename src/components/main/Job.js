@@ -9,9 +9,7 @@ import JobDescription from './job-components/JobDescription';
 class Job extends React.Component {
 
   renderBullet(bullet) {
-
         return (
-
           <Bullet
             className="job-bullet"
             key={bullet.bulletId}
@@ -23,44 +21,6 @@ class Job extends React.Component {
           ></Bullet>
           )
       }
-
-                /* <li 
-                    className="job-bullet" 
-                    key={bullet.bulletId}>
-                    <JobBullet 
-                    value={bullet} 
-                    handleEditBullet={this.props.handleEditBullet}
-                    jobId = {this.props.value.id} 
-                    bulletId={bullet.bulletId}
-                    />
-                    <DeleteButton 
-                      handleDelete = {this.props.handleDeleteBullet} 
-                      jobId = {this.props.value.id} 
-                      id={bullet.bulletId}/>
-                </li>
-        )
-      } else {
-          return (
-            <li 
-            className="job-bullet" 
-            key={bullet.bulletId}>
-            <EditForm 
-              handleSubmit={this.props.handleUpdateBullet}
-              value={bullet}
-              jobId={this.props.value.id} 
-              />
-              
-            <DeleteButton 
-              handleDelete = {this.handleDeleteBullet} 
-              jobId = {this.props.value.id} 
-              value={bullet.bulletId}/>
-            </li>
-        )
-      }
-      
-      
-    } 
-   */
 
   renderBullets(bullets) {
     return bullets.map((bullet) => 

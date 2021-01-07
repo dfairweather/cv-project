@@ -204,6 +204,7 @@ class App extends React.Component {
     const current = history[history.length - 1];
     const skills = current.skills.slice()
     const skill = this.newBullet(e.target[0].value);
+    e.target[0].value = '';
     this.setState({
       history: history.concat([{
         ...current,
@@ -230,6 +231,7 @@ class App extends React.Component {
   }
 
   handleEditSkill = (text, skillId) => {
+    console.log(text, skillId);
     const history = this.state.history.slice(0, this.state.displayIndex + 1);
     const current = history[history.length - 1];
     const index = current.skills.findIndex(skill => skill.bulletId === skillId);
@@ -344,6 +346,7 @@ class App extends React.Component {
     const jobs = JSON.parse(JSON.stringify(current.jobs));
     const index = jobs.findIndex(job => job.id === jobId);
     jobs[index].bullets.push(newBullet)
+    e.target[0].value = '';
     this.setState({
       history: history.concat([{
         ...current,
@@ -353,7 +356,7 @@ class App extends React.Component {
     })
   }
 
-  handleDeleteBullet = (bulletId, jobId) => {
+  handleDeleteBullet = (jobId, bulletId) => {
     console.log(bulletId, jobId);
     const history = this.state.history.slice(0, this.state.displayIndex + 1);
     const current = history[history.length - 1];

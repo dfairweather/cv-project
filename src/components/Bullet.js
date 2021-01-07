@@ -12,8 +12,8 @@ function Bullet(props) {
                 field={props.field}
             ></Editable>
             <DeleteButton 
-                id={props.field} 
-                jobId={props.id}
+                id={props.id} 
+                bulletId={props.field}
                 handleDelete={props.handleDelete}
             ></DeleteButton>
         </li>
