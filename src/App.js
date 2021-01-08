@@ -13,6 +13,7 @@ class App extends React.Component {
           occupation: 'web developer',
           profile: "Career objective here. Belina lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
           contacts: {
+            address: "234 Address, State",
             email: "email addess",
             phone: "phone number",
             website: "website"
@@ -435,6 +436,8 @@ class App extends React.Component {
       return (
       <div className="app">
         <Sidebar 
+          address={current.contacts.address}
+          handleEditAddress={this.handleEditContacts}
           handleEditName={this.handleEditName}
           handleEditOccupation={this.handleEditOccupation}
           handleEditSchool={this.handleEditSchool}

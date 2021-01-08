@@ -7,6 +7,7 @@ import AddButton from '../AddButton';
 import Contacts from './Contacts';
 import UndoButton from '../UndoButton';
 import RedoButton from '../RedoButton';
+import Picture from './Picture';
 
 class Main extends React.Component {
 
@@ -33,6 +34,7 @@ class Main extends React.Component {
       <div className="main">
         <UndoButton onClick={this.props.handleUndo}></UndoButton>
         <RedoButton onClick={this.props.handleRedo}></RedoButton>
+        <Picture></Picture>
         <Contacts 
           contacts={this.props.contacts}
           handleEdit={this.props.handleEditContacts}

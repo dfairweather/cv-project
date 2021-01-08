@@ -4,6 +4,7 @@ import Education from './Education';
 import React from 'react';
 import SchoolForm from './SchoolForm';
 import AddButton from '../AddButton';
+import Contact from '../main/Contact';
 
 class Sidebar extends React.Component{
   render() {
@@ -22,6 +23,12 @@ class Sidebar extends React.Component{
     }
     return (
       <div className="sidebar">
+        <Contact 
+          icon={"location_on"}
+          text={this.props.address}
+          handleEdit={this.props.handleEditAddress}
+          category={"address"}
+        ></Contact>
         <Name 
           handleEditName={this.props.handleEditName}
           name={this.props.name}
