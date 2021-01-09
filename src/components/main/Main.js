@@ -34,16 +34,19 @@ class Main extends React.Component {
       <div className="main">
         <UndoButton onClick={this.props.handleUndo}></UndoButton>
         <RedoButton onClick={this.props.handleRedo}></RedoButton>
-        <Picture></Picture>
-        <Contacts 
-          contacts={this.props.contacts}
-          handleEdit={this.props.handleEditContacts}
-        ></Contacts>
-        <Profile
+        <div className="main-head">
+          <Picture/>
+          <Contacts 
+            contacts={this.props.contacts}
+            handleEdit={this.props.handleEditContacts}
+          ></Contacts>
+        </div>
+        <div className="main-body">
+          <Profile
             handleEdit={this.props.handleEditProfile}
             profile={this.props.profile}
-        ></Profile>
-        <Experience
+          ></Profile>
+          <Experience
             handleAddBullet={this.props.handleAddBullet} 
             handleDeleteBullet={this.props.handleDeleteBullet} 
             handleEdit={this.handleEdit}
@@ -52,8 +55,12 @@ class Main extends React.Component {
             handleJobEdit={this.props.handleJobEdit}
             handleDeleteJob={this.props.handleDeleteJob}
             jobs={this.props.jobs}
-        ></Experience>
-        {jobForm}
+          ></Experience>
+          {jobForm}
+        </div>
+       
+        
+        
       </div>
     );
   } 

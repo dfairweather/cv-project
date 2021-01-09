@@ -3,24 +3,24 @@ function Form(props) {
         <form className="job-form" onSubmit={props.onSubmit}>
             
             <label>
-                Job Title: 
-                <input type="text" name="title"></input>
+                
+                <input type="text" name="title" placeholder="Job Title: "></input>
             </label>
             <label>
-                Company: 
-                <input type="text" name="company"></input>
+                
+                <input type="text" name="company" placeholder="Company:"></input>
             </label>
             <label>
-                Start year:
-                <input type="text" name="start"></input>
+                
+                <input type="text" name="start" placeholder="Start year:"></input>
             </label>
             <label>
-                End Year:
-                <input type="text" name="end"></input>
+                
+                <input type="text" name="end" placeholder="End Year:"></input>
             </label>
             <label>
-                Description:
-                <textarea type="text" name="description"></textarea>
+                
+                <textarea type="text" name="description" placeholder="Description:"></textarea>
             </label>
             
             <input type="submit" name="submit" value="Submit"></input>

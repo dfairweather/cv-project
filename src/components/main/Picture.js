@@ -20,23 +20,31 @@ function Picture(){
  
     return (
         <div className = 'picture'>
-            <input 
-                type="file"
-                accept="image/*"
-                multiple={false}
-                onChange={handleImageUpload}
-            ></input>
+            <div>
+                <input 
+                    type="file"
+                    accept="image/*"
+                    multiple={false}
+                    onChange={handleImageUpload}
+                ></input>
 
-            <img
+            </div>
+
+            <div>
+               <img
                 ref={uploadedImage}
                 alt="your pic"
                 style={{
                     filter: "grayscale(100%)",
                
                     height: "200px",
-                    position: "absolute"
+                    
                 }}
-            />
+            /> 
+            </div>
+            
+            
+            
         </div>
     )
 
