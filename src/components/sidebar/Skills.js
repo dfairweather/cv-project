@@ -30,12 +30,18 @@ class Skills extends React.Component {
     
 
   render() {
+    let bulletForm = null;
+    if (this.props.editMode) {
+      bulletForm = <AddBulletForm 
+      handleAddBullet={this.props.handleAddSkill}/>
+ 
+    }
     return (
       <div className="skills">
         <Section name="skills"></Section>
         <ul>
           {this.renderSkills()}
-          <AddBulletForm handleAddBullet={this.props.handleAddSkill}></AddBulletForm>
+          {bulletForm}
         </ul>
       </div>
     );

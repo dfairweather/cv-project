@@ -5,15 +5,9 @@ import Form from './Form';
 import React from 'react';
 import AddButton from '../AddButton';
 import Contacts from './Contacts';
-import UndoButton from '../UndoButton';
-import RedoButton from '../RedoButton';
 import Picture from './Picture';
 
 class Main extends React.Component {
-
-
-
- 
   render() {
     const showJobForm = this.props.showJobForm;
     let jobForm;
@@ -22,18 +16,18 @@ class Main extends React.Component {
                   onSubmit={this.props.handleSubmitJob}
                   onCancel={this.props.handleShowJobForm}
                 ></Form>
-    } else {
+    } else if (this.props.editMode) {
       jobForm = <div className="add-job">   
                   Add New Job
                   <AddButton 
                     onClick={this.props.handleShowJobForm}
                   ></AddButton>
                 </div>
+    } else {
+      jobForm = null;
     }
     return (
       <div className="main">
-        <UndoButton onClick={this.props.handleUndo}></UndoButton>
-        <RedoButton onClick={this.props.handleRedo}></RedoButton>
         <div className="main-head">
           <Picture/>
           <Contacts 
@@ -55,6 +49,7 @@ class Main extends React.Component {
             handleJobEdit={this.props.handleJobEdit}
             handleDeleteJob={this.props.handleDeleteJob}
             jobs={this.props.jobs}
+            editMode={this.props.editMode}
           ></Experience>
           {jobForm}
         </div>

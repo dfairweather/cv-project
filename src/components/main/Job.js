@@ -29,17 +29,34 @@ class Job extends React.Component {
 
   render() {
     const { title, company, start, end, description, id, bullets } = this.props.value;
+    let bulletForm = null;
+    if (this.props.editMode) {
+      bulletForm = (
+      <li>
+        <form 
+          onSubmit={(e) => {
+          this.props.handleAddBullet(e, id)
+          }} 
+          className="bullet-form">
+          <input type="text" name="bullet" placeholder="Add bullet point..."></input>
+        </form>
+      <AddButton/>
+      </li>
+      )
+    }
     return (
       <div className="job" key={id}>
+        <DeleteButton 
+          className='job-delete'
+          id={id} 
+          handleDelete={this.props.handleDeleteJob}
+        ></DeleteButton>
         <JobTitle 
           text={title.toUpperCase()} 
           jobId={id} 
           handleEdit={this.props.handleJobEdit}
         ></JobTitle>
-        <DeleteButton 
-          id={id} 
-          handleDelete={this.props.handleDeleteJob}
-        ></DeleteButton>
+        
         <Company 
           company={company.toUpperCase()} 
           start={start} 
@@ -51,16 +68,7 @@ class Job extends React.Component {
           jobId={id}></JobDescription>
         <ul>
             {this.renderBullets(bullets)}
-            <li>
-              <form 
-                onSubmit={(e) => {
-                this.props.handleAddBullet(e, id)
-                }} 
-                className="bullet-form">
-                <input type="text" name="bullet" placeholder="Add bullet point..."></input>
-              </form>
-              <AddButton/>
-            </li>
+            {bulletForm}
         </ul>
       </div>
     );

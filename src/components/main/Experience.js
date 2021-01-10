@@ -16,7 +16,9 @@ class Experience extends React.Component {
         handleJobEdit = {this.props.handleJobEdit}
         handleDeleteJob={this.props.handleDeleteJob}
         value={job} 
-        key={job.id}/>
+        key={job.id}
+        editMode={this.props.editMode}
+      />
     )
   }
 

@@ -1,5 +1,7 @@
 import  Sidebar  from './components/sidebar/Sidebar';
 import Main from './components/main/Main';
+import Footer from './components/footer/Footer';
+import Icon from './components/Icon';
 import './styles/styles.css';
 import React from 'react';
 import uniqid from 'uniqid';
@@ -24,7 +26,8 @@ class App extends React.Component {
         }],
         displayIndex: 0,
         showSchoolForm: false,
-        showJobForm: false
+        showJobForm: false,
+        editMode: true,
     }
   }
 
@@ -427,50 +430,75 @@ class App extends React.Component {
     })
   } 
 
+  handleSave = () => {
+    this.setState({editMode: !this.state.editMode})
+    console.log(this.state.editMode);
+  }
 
 
   render() {
       
       const history = this.state.history.slice(0, this.state.displayIndex + 1);
       const current = history[history.length - 1];
+      let edit = <button 
+                  className="edit-mode"
+                  onClick={this.handleSave}>
+                  Edit Resume
+                  <Icon type={"create"}></Icon>
+                </button>
+      let footer = null;
+      if (this.state.editMode) {
+        footer = <Footer
+                  handleUndo={this.handleUndo}
+                  handleRedo={this.handleRedo}
+                  handleSave={this.handleSave} 
+                  handleShowSchoolForm={this.handleShowSchoolForm}
+                  handleShowJobForm={this.handleShowJobForm}
+                ></Footer>;
+        edit = null;
+      } 
       return (
       <div className="app">
-        <Sidebar 
-          address={current.contacts.address}
-          handleEditAddress={this.handleEditContacts}
-          handleEditName={this.handleEditName}
-          handleEditOccupation={this.handleEditOccupation}
-          handleEditSchool={this.handleEditSchool}
-          name={current.name} 
-          occupation={current.occupation}
-          schools={current.schools} 
-          handleSubmitSchool={this.handleSubmitSchool}
-          handleShowSchoolForm={this.handleShowSchoolForm}
-          showSchoolForm={this.state.showSchoolForm}
-          handleAddSkill={this.handleAddSkill}
-          handleDeleteSkill={this.handleDeleteSkill}
-          handleEditSkill={this.handleEditSkill}
-          skills={current.skills}
-          handleDeleteSchool={this.handleDeleteSchool}
-        />
-        <Main 
-          contacts={current.contacts}
-          handleEditContacts={this.handleEditContacts}
-          handleAddBullet={this.handleAddBullet} 
-          handleDeleteBullet={this.handleDeleteBullet} 
-          handleEditBullet={this.handleEditBullet}
-          handleUpdateBullet={this.handleUpdateBullet}
-          handleSubmitJob={this.handleSubmitJob}
-          profile={current.profile}
-          handleEditProfile={this.handleEditProfile}
-          handleJobEdit={this.handleJobEdit}
-          handleDeleteJob={this.handleDeleteJob}
-          jobs={current.jobs}
-          handleShowJobForm={this.handleShowJobForm}
-          showJobForm={this.state.showJobForm}
-          handleUndo={this.handleUndo}
-          handleRedo={this.handleRedo}
-        />
+        {edit}
+        <div className="resume">
+          <Sidebar 
+            address={current.contacts.address}
+            handleEditAddress={this.handleEditContacts}
+            handleEditName={this.handleEditName}
+            handleEditOccupation={this.handleEditOccupation}
+            handleEditSchool={this.handleEditSchool}
+            name={current.name} 
+            occupation={current.occupation}
+            schools={current.schools} 
+            handleSubmitSchool={this.handleSubmitSchool}
+            handleShowSchoolForm={this.handleShowSchoolForm}
+            showSchoolForm={this.state.showSchoolForm}
+            handleAddSkill={this.handleAddSkill}
+            handleDeleteSkill={this.handleDeleteSkill}
+            handleEditSkill={this.handleEditSkill}
+            skills={current.skills}
+            handleDeleteSchool={this.handleDeleteSchool}
+            editMode={this.state.editMode}
+          />
+          <Main 
+            contacts={current.contacts}
+            handleEditContacts={this.handleEditContacts}
+            handleAddBullet={this.handleAddBullet} 
+            handleDeleteBullet={this.handleDeleteBullet} 
+            handleEditBullet={this.handleEditBullet}
+            handleUpdateBullet={this.handleUpdateBullet}
+            handleSubmitJob={this.handleSubmitJob}
+            profile={current.profile}
+            handleEditProfile={this.handleEditProfile}
+            handleJobEdit={this.handleJobEdit}
+            handleDeleteJob={this.handleDeleteJob}
+            jobs={current.jobs}
+            handleShowJobForm={this.handleShowJobForm}
+            showJobForm={this.state.showJobForm}
+            editMode={this.state.editMode}
+          />
+          </div>
+          {footer}
       </div>
     );
   }

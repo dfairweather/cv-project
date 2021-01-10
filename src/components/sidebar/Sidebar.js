@@ -15,11 +15,13 @@ class Sidebar extends React.Component{
                       onSubmit={this.props.handleSubmitSchool}
                       onCancel={this.props.handleShowSchoolForm}
                   ></SchoolForm>
-    } else {
+    } else if (!showSchoolForm && this.props.editMode){
       schoolForm = <div className='add-school'>
                    Add New School
                    <AddButton onClick={this.props.handleShowSchoolForm}></AddButton>
                   </div>
+    } else {
+      schoolForm = null;
     }
     return (
       <div className="sidebar">
@@ -46,6 +48,7 @@ class Sidebar extends React.Component{
           handleAddSkill={this.props.handleAddSkill}
           handleDeleteSkill={this.props.handleDeleteSkill}
           handleEditSkill={this.props.handleEditSkill}
+          editMode={this.props.editMode}
         />
       </div>
     );

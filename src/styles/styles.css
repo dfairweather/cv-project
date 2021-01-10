@@ -15,21 +15,22 @@
     src: url('NotoSansJP-Regular.otf');
 }
 
-#root {
+
+
+.resume {
+    
+    margin: auto;
     width: 1000px;
-    margin: auto;  
-}
-
-.app {
-
     display: grid;
     grid-template-columns: 1fr 2fr;
 
 }
 body{
-   color: #454545;
-   font-family: 'NotoSansJP-Regular';
-   background-image: linear-gradient(to bottom left,#c7c7c7, #898989  )
+
+    margin: 8px 0 0 0;
+    color: #454545;
+    font-family: 'NotoSansJP-Regular';
+    background-image: linear-gradient(to bottom left,#c7c7c7, #898989  )
    
 }
 .sidebar {
@@ -58,6 +59,13 @@ body{
 
 .main-head .contacts{
     align-self: flex-end;
+}
+
+.edit-mode {
+    width: 150px;
+    position: fixed;
+    bottom: 50px;
+    right: 200px;
 }
 
 .contact .material-icons {
@@ -127,9 +135,7 @@ input::placeholder {
     background:#d7d7d7;
 }
 
-.profile:hover .material-icons {
-    opacity: 1;
-}
+
 
 .bullet-form {
     display: inline;
@@ -178,6 +184,18 @@ textarea {
     cursor: pointer;
 }
 
+.job .delete-button{
+    float: right;
+}
+
+.job:hover .job-delete{
+    opacity: .3;
+}
+
+.job:hover .job-delete:hover{
+    opacity: 1;
+}
+
 
 
 .delete-button {
@@ -206,4 +224,23 @@ textarea {
 
 .material-icons {
     cursor: pointer;
+}
+
+
+
+.material-icons.delete-button{
+    cursor: pointer;
+    opacity: 0;
+}
+
+
+/* Footer */
+
+footer {
+    height: 50px;
+    min-width: 100%;
+    background: white;
+    position: fixed;
+    bottom: 0px;
+    text-align: center;
 }
