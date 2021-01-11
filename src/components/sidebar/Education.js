@@ -13,6 +13,7 @@ class Education extends React.Component {
         key={school.id}
         school={school}
         handleDeleteSchool={this.props.handleDeleteSchool}
+        editMode={this.props.editMode}
       />
     )
   }

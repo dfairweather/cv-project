@@ -3,6 +3,15 @@ import DeleteButton from '../DeleteButton';
 
 function School(props) {
   const {major, school, start, end, id} = props.school
+  let deleteButton = null;
+  if (props.editMode) {
+    deleteButton = (
+      <DeleteButton 
+        handleDelete={props.handleDeleteSchool}
+        id={id}
+      ></DeleteButton>
+    )
+  }
   return (
     <div className="school">
       
@@ -11,11 +20,9 @@ function School(props) {
         text={major}
         field={"major"}
         handleEdit={props.handleEditSchool}
+        editMode={props.editMode}
       ></Editable>
-      <DeleteButton 
-        handleDelete={props.handleDeleteSchool}
-        id={id}
-      ></DeleteButton>
+      {deleteButton}
       <br></br>
      
   
@@ -24,6 +31,7 @@ function School(props) {
         jobId={id} 
         field={"school"}
         handleEdit={props.handleEditSchool}
+        editMode={props.editMode}
       ></Editable>
       <br></br>
       <Editable 
@@ -31,6 +39,7 @@ function School(props) {
         jobId={id}
         field={"start"}
         handleEdit={props.handleEditSchool}
+        editMode={props.editMode}
       ></Editable>
       &nbsp;
       <span style={{ fontWeight: '200' }}>to</span>
@@ -40,6 +49,7 @@ function School(props) {
         jobId={id}
         field={"end"}
         handleEdit={props.handleEditSchool}
+        editMode={props.editMode}
       ></Editable>
     </div>
   );

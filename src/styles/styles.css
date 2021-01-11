@@ -101,13 +101,6 @@ input::placeholder {
 }
 
 
-.name:hover{
-
-    background: #aaaaaa;
-}
-/* .material-icons {
-    opacity: 0;
-} */
 
 
 
@@ -123,6 +116,18 @@ input::placeholder {
 
     width: 95%;
     display: block;
+}
+.school .delete-button{
+    float: right;
+}
+
+
+.school:hover .delete-button{
+    opacity: .3;
+}
+
+.school .delete-button:hover {
+    opacity: 1;
 }
 
 .section {
@@ -222,9 +227,6 @@ textarea {
     background:#d7d7d7;
 }
 
-.material-icons {
-    cursor: pointer;
-}
 
 
 

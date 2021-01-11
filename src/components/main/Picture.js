@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Picture(){
+function Picture(props){
     
     const uploadedImage = React.useRef(null);
     const handleImageUpload = e => {
@@ -17,9 +17,9 @@ function Picture(){
     }; 
 
    
- 
-    return (
-        <div className = 'picture'>
+    let upload = null;
+    if (props.editMode) {
+        upload = (
             <div>
                 <input 
                     type="file"
@@ -29,11 +29,15 @@ function Picture(){
                 ></input>
 
             </div>
+        )
+    }
+    return (
 
+        <div className = 'picture'>
             <div>
                <img
                 ref={uploadedImage}
-                alt="your pic"
+                alt="your pic goes heres"
                 style={{
                     filter: "grayscale(100%)",
                
@@ -42,7 +46,7 @@ function Picture(){
                 }}
             /> 
             </div>
-            
+            {upload}
             
             
         </div>

@@ -8,6 +8,7 @@ function Name(props) {
           <Editable
             text={props.name.toUpperCase()}
             handleEdit={props.handleEditName}
+            editMode={props.editMode}
           />
         </div>
        
@@ -15,6 +16,7 @@ function Name(props) {
         <Editable
           text={props.occupation.toUpperCase()}
           handleEdit={props.handleEditOccupation}
+          editMode={props.editMode}
         />
       </div>
     );

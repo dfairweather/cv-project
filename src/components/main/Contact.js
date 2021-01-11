@@ -11,6 +11,7 @@ function Contact(props) {
                 text={props.text}
                 handleEdit={props.handleEdit}
                 jobId={props.category}
+                editMode={props.editMode}
             ></Editable>
         </div>
     )

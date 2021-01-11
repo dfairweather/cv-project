@@ -21,7 +21,7 @@ class App extends React.Component {
             website: "website"
           },
           schools: [this.addDefaultSchool()],
-          skills: [],
+          skills: this.addDefaultSkills(),
           jobs: [this.addDefaultJob()],
         }],
         displayIndex: 0,
@@ -192,6 +192,19 @@ class App extends React.Component {
 
     defaultJob.bullets.push(bullet1, bullet2, bullet3);
     return defaultJob
+  }
+
+  addDefaultSkills = () => {
+    const skills = [];
+    const list = [
+      'Skills go here', 
+      'Front End', 
+      'Back end',
+      'UI Design',
+      'Javascript'
+    ]
+    list.forEach(skill => skills.push(this.newBullet(skill)))
+    return skills;
   }
 
   newBullet = (text) => {

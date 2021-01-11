@@ -18,6 +18,7 @@ class Job extends React.Component {
             handleEdit={this.props.handleUpdateBullet}
             id={this.props.value.id}
             field={bullet.bulletId}
+            editMode={this.props.editMode}
           ></Bullet>
           )
       }
@@ -30,6 +31,7 @@ class Job extends React.Component {
   render() {
     const { title, company, start, end, description, id, bullets } = this.props.value;
     let bulletForm = null;
+    let deleteButton = null;
     if (this.props.editMode) {
       bulletForm = (
       <li>
@@ -38,34 +40,45 @@ class Job extends React.Component {
           this.props.handleAddBullet(e, id)
           }} 
           className="bullet-form">
-          <input type="text" name="bullet" placeholder="Add bullet point..."></input>
+          <input 
+            type="text" 
+            name="bullet" 
+            placeholder="Add bullet point..."
+          ></input>
         </form>
       <AddButton/>
       </li>
       )
+      deleteButton = (
+        <DeleteButton 
+        className='job-delete'
+        id={id} 
+        handleDelete={this.props.handleDeleteJob}
+      ></DeleteButton>
+      )
     }
     return (
       <div className="job" key={id}>
-        <DeleteButton 
-          className='job-delete'
-          id={id} 
-          handleDelete={this.props.handleDeleteJob}
-        ></DeleteButton>
+       {deleteButton}
         <JobTitle 
           text={title.toUpperCase()} 
           jobId={id} 
           handleEdit={this.props.handleJobEdit}
-        ></JobTitle>
-        
+          editMode={this.props.editMode}
+        ></JobTitle> 
         <Company 
           company={company.toUpperCase()} 
           start={start} 
           end={end} id={id} 
-          handleEdit={this.props.handleJobEdit}></Company>
+          handleEdit={this.props.handleJobEdit}
+          editMode={this.props.editMode}
+        ></Company>
         <JobDescription 
           text={description}
           handleEdit={this.props.handleJobEdit}
-          jobId={id}></JobDescription>
+          jobId={id}
+          editMode={this.props.editMode}
+        ></JobDescription>
         <ul>
             {this.renderBullets(bullets)}
             {bulletForm}

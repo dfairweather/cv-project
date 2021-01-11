@@ -29,16 +29,18 @@ class Main extends React.Component {
     return (
       <div className="main">
         <div className="main-head">
-          <Picture/>
+          <Picture editMode={this.props.editMode}/>
           <Contacts 
             contacts={this.props.contacts}
             handleEdit={this.props.handleEditContacts}
+            editMode={this.props.editMode}
           ></Contacts>
         </div>
         <div className="main-body">
           <Profile
             handleEdit={this.props.handleEditProfile}
             profile={this.props.profile}
+            editMode={this.props.editMode}
           ></Profile>
           <Experience
             handleAddBullet={this.props.handleAddBullet} 

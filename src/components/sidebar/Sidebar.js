@@ -30,17 +30,20 @@ class Sidebar extends React.Component{
           text={this.props.address}
           handleEdit={this.props.handleEditAddress}
           category={"address"}
+          editMode={this.props.editMode}
         ></Contact>
         <Name 
           handleEditName={this.props.handleEditName}
           name={this.props.name}
           occupation={this.props.occupation}
           handleEditOccupation={this.props.handleEditOccupation}
+          editMode={this.props.editMode}
         />
         <Education 
           schools={this.props.schools}
           handleEditSchool={this.props.handleEditSchool}
           handleDeleteSchool={this.props.handleDeleteSchool}
+          editMode={this.props.editMode}
         ></Education>
         {schoolForm}
         <Skills 

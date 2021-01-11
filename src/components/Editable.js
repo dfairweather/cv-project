@@ -3,10 +3,10 @@ import EditableForm from './EditableForm';
 
 class Editable extends React.Component {
     constructor(props) {
-        super();
+        super(props);
         this.state = {
-            text: props.text,
-            beingEdited: props.beingEdited
+            text: this.props.text,
+            beingEdited: this.props.beingEdited
         }
     }
 
@@ -20,13 +20,26 @@ class Editable extends React.Component {
     }
 
     render() {
-        
-        if (!this.state.beingEdited) {
-            return (
+        let editable;
+        if(!this.props.editMode) {
+            editable = (
+                <span className="fixed">
+                    {this.props.text}
+                </span>
+            );   
+        } else {
+            editable = (
                 <span className="editable" onClick={ () => this.setState({ beingEdited: true }) }>
                     {this.props.text}
                 </span>
             )
+        }
+        if (!this.state.beingEdited) {
+            return ( <>
+                 {editable}
+            </>
+               
+                )
         } else if(this.state.beingEdited && this.props.field === 'description') {
             return (
                 <EditableForm
