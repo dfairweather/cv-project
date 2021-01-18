@@ -17,7 +17,7 @@ function School(props) {
       
       <Editable 
         jobId={id} 
-        text={major}
+        text={major.toUpperCase()}
         field={"major"}
         handleEdit={props.handleEditSchool}
         editMode={props.editMode}
@@ -27,30 +27,33 @@ function School(props) {
      
   
       <Editable 
-        text={school}
+        text={school.toUpperCase()}
         jobId={id} 
         field={"school"}
         handleEdit={props.handleEditSchool}
         editMode={props.editMode}
       ></Editable>
       <br></br>
-      <Editable 
-        text={start}
-        jobId={id}
-        field={"start"}
-        handleEdit={props.handleEditSchool}
-        editMode={props.editMode}
-      ></Editable>
-      &nbsp;
-      <span style={{ fontWeight: '200' }}>to</span>
-      &nbsp;
-      <Editable 
-        text={end}
-        jobId={id}
-        field={"end"}
-        handleEdit={props.handleEditSchool}
-        editMode={props.editMode}
-      ></Editable>
+      <div className="school-date">
+        <Editable 
+          text={start}
+          jobId={id}
+          field={"start"}
+          handleEdit={props.handleEditSchool}
+          editMode={props.editMode}
+        ></Editable>
+        &nbsp;
+        <span>-</span>
+        &nbsp;
+        <Editable 
+          text={end}
+          jobId={id}
+          field={"end"}
+          handleEdit={props.handleEditSchool}
+          editMode={props.editMode}
+        ></Editable>
+      </div>
+      
     </div>
   );
 }

@@ -28,6 +28,11 @@ class Education extends React.Component {
     return (
       <div className="education">
         <Section name="Education"/>
+        <div style={{
+          margin: "20px 0",
+          width: "40px", 
+          height: "1px", 
+          background: "#454545"}}/>
         {this.renderSchools()}
       </div>
     );

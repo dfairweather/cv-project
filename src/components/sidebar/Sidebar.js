@@ -2,36 +2,35 @@ import Name from './Name';
 import Skills from './Skills';
 import Education from './Education';
 import React from 'react';
-import SchoolForm from './SchoolForm';
 import AddButton from '../AddButton';
 import Contact from '../main/Contact';
+import Rectangle from '../Rectangle';
 
 class Sidebar extends React.Component{
   render() {
-    const showSchoolForm = this.props.showSchoolForm;
-    let schoolForm;
-    if (showSchoolForm) {
-      schoolForm = <SchoolForm
-                      onSubmit={this.props.handleSubmitSchool}
-                      onCancel={this.props.handleShowSchoolForm}
-                  ></SchoolForm>
-    } else if (!showSchoolForm && this.props.editMode){
-      schoolForm = <div className='add-school'>
-                   Add New School
-                   <AddButton onClick={this.props.handleShowSchoolForm}></AddButton>
-                  </div>
-    } else {
-      schoolForm = null;
+    let schoolForm = null;
+    if (this.props.editMode){
+      schoolForm = <button 
+                      className='add-school'
+                      onClick={() => {this.props.handleShowModal("school")}}
+                  >
+                      Add New School
+                      <AddButton onClick={() => {this.props.handleShowModal("school")}}></AddButton>
+                  </button>
     }
     return (
       <div className="sidebar">
-        <Contact 
-          icon={"location_on"}
-          text={this.props.address}
-          handleEdit={this.props.handleEditAddress}
-          category={"address"}
-          editMode={this.props.editMode}
-        ></Contact>
+        <div className="address-container">
+          <Rectangle/>
+          <Contact 
+            icon={"location_on"}
+            text={this.props.address}
+            handleEdit={this.props.handleEditAddress}
+            category={"address"}
+            editMode={this.props.editMode}
+          ></Contact>
+        </div>
+        
         <Name 
           handleEditName={this.props.handleEditName}
           name={this.props.name}

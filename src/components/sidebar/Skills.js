@@ -40,6 +40,11 @@ class Skills extends React.Component {
     return (
       <div className="skills">
         <Section name="skills"></Section>
+        <div style={{
+          margin: "20px 0",
+          width: "40px", 
+          height: "1px", 
+          background: "#454545"}}/>
         <ul>
           {this.renderSkills()}
           {bulletForm}

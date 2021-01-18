@@ -1,18 +1,20 @@
 import React from 'react';
+import firebase from '../../firebase';
 
 function Picture(props){
-    
-    const uploadedImage = React.useRef(null);
+
+    const uploadedImage = React.useRef(props.picture);
     const handleImageUpload = e => {
         const [file] = e.target.files;
         if (file) {
+            props.handleSavePicture(file)
             const reader = new FileReader();
             const {current} = uploadedImage;
             current.file = file;
             reader.onload = (e) => {
                 current.src = e.target.result;
             }
-            reader.readAsDataURL(file);
+            console.log(reader.readAsDataURL(file));
         }
     }; 
 
@@ -31,6 +33,16 @@ function Picture(props){
             </div>
         )
     }
+    let picurl;
+   
+    let storageRef = firebase.storage().ref();
+    let picRef = storageRef.child('images/mypic.jpg');
+    picRef.getDownloadURL().then(function(url) {
+        picurl=url;
+        
+    })
+    
+
     return (
 
         <div className = 'picture'>
@@ -44,7 +56,9 @@ function Picture(props){
                     height: "200px",
                     
                 }}
-            /> 
+                
+                /> 
+            <img alt="work" src={picurl}></img>
             </div>
             {upload}
             

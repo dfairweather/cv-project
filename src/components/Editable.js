@@ -23,7 +23,7 @@ class Editable extends React.Component {
         let editable;
         if(!this.props.editMode) {
             editable = (
-                <span className="fixed">
+                <span className={"fixed " + this.props.field}>
                     {this.props.text}
                 </span>
             );   

@@ -32,6 +32,7 @@ class Job extends React.Component {
     const { title, company, start, end, description, id, bullets } = this.props.value;
     let bulletForm = null;
     let deleteButton = null;
+    let bulletList;
     if (this.props.editMode) {
       bulletForm = (
       <li>
@@ -57,6 +58,18 @@ class Job extends React.Component {
       ></DeleteButton>
       )
     }
+    if(bullets) {
+      bulletList = (
+      <ul>
+        {this.renderBullets(bullets)}
+        {bulletForm}
+      </ul>
+      )
+    } else {
+      bulletList =  <ul>
+      {bulletForm}
+    </ul>
+    }
     return (
       <div className="job" key={id}>
        {deleteButton}
@@ -79,10 +92,7 @@ class Job extends React.Component {
           jobId={id}
           editMode={this.props.editMode}
         ></JobDescription>
-        <ul>
-            {this.renderBullets(bullets)}
-            {bulletForm}
-        </ul>
+        {bulletList}
       </div>
     );
   }

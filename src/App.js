@@ -1,35 +1,81 @@
 import  Sidebar  from './components/sidebar/Sidebar';
 import Main from './components/main/Main';
 import Footer from './components/footer/Footer';
+import Modal from './components/modal/Modal';
 import Icon from './components/Icon';
 import './styles/styles.css';
 import React from 'react';
 import uniqid from 'uniqid';
+import firebase from './firebase';
+
 
 class App extends React.Component {
   constructor() {
     super();
+
+    const storage = JSON.parse(localStorage.getItem('resume')) || this.default();
+    const picture = JSON.parse(localStorage.getItem('picture')) || null;
+    console.log(picture)
     this.state = {
-        history: [{
-          name: 'Dexter Fairweather',
-          occupation: 'web developer',
-          profile: "Career objective here. Belina lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
-          contacts: {
-            address: "234 Address, State",
-            email: "email addess",
-            phone: "phone number",
-            website: "website"
-          },
-          schools: [this.addDefaultSchool()],
-          skills: this.addDefaultSkills(),
-          jobs: [this.addDefaultJob()],
-        }],
+        history: [storage],
         displayIndex: 0,
         showSchoolForm: false,
         showJobForm: false,
-        editMode: true,
+        editMode: false,
+        showModal: false,
+        picture: picture,
+        url: null,
+    }
+
+  }
+
+  
+  default = () => {
+    return {
+      name: 'Dexter Fairweather',
+      occupation: 'web developer',
+      profile: "Career objective here. Belina lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
+      contacts: {
+        address: "234 Address, State",
+        email: "email addess",
+        phone: "phone number",
+        website: "website"
+      },
+      schools: [this.addDefaultSchool()],
+      skills: this.addDefaultSkills(),
+      jobs: [this.addDefaultJob()],
     }
   }
+
+  componentDidMount() {
+    const resumeRef = firebase.database().ref('resume');
+    resumeRef.once('value', (snapshot) => {
+      let resume = snapshot.val();
+      if(resume) {
+          this.setState({
+          history: [resume]
+        });
+      }
+      
+    });
+  }
+
+  commit = () => {
+    let itemsRef = firebase.database().ref('resume');
+    const currentState = this.state.history[this.state.history.length - 1];
+    itemsRef.update(currentState);
+  }
+
+  uploadPic = () => {
+    let storageRef = firebase.storage().ref();
+    let picRef = storageRef.child('images/mypic.jpg');
+    let picture = this.state.picture;
+    picRef.put(picture).then(function(snapshot) {
+      console.log('uploaded picture!');
+    })
+  }
+
+  
 
   handleUndo = () => {
     const index = this.state.displayIndex;
@@ -175,7 +221,7 @@ class App extends React.Component {
 
   handleSubmitSchool = e => {
     e.preventDefault();
-    this.setState({showSchoolForm: false})
+    this.setState({showModal: false})
     this.addSchool(e.target.major.value, 
       e.target.university.value,
       e.target.start.value,
@@ -275,12 +321,16 @@ class App extends React.Component {
       end: end,
       description: description,
       id: uniqid(),
-      bullets: []
+      bullets: [this.newBullet('Bullet points here')]
     };
   }
 
-  handleShowJobForm = () => {
-    this.setState({showJobForm: !this.state.showJobForm})
+  handleShowModal = (type) => {
+    this.setState({showModal: type})
+  }
+
+  handleRemoveModal = () => {
+    this.setState({showModal: false})
   }
 
   addJob = (title, company, start, end, description) => {
@@ -288,6 +338,7 @@ class App extends React.Component {
     const history = this.state.history.slice(0, this.state.displayIndex + 1);
     const current = history[history.length - 1];
     const newJob = this.newJob(title, company, start, end, description);
+    console.log(newJob);
     const jobs = current.jobs.slice();
     this.setState({
       history: history.concat([{
@@ -302,7 +353,7 @@ class App extends React.Component {
 
   handleSubmitJob = e => {
     e.preventDefault();
-    this.setState({showJobForm: false})
+    this.setState({showModal: false})
     this.addJob(e.target.title.value, 
       e.target.company.value,
       e.target.start.value,
@@ -441,11 +492,20 @@ class App extends React.Component {
       }]),
       displayIndex: history.length
     })
-  } 
+  }
+  
+  handleEditMode = () => {
+    this.setState({editMode: !this.state.editMode})
+  }
 
   handleSave = () => {
-    this.setState({editMode: !this.state.editMode})
-    console.log(this.state.editMode);
+    this.handleEditMode();
+    this.commit();
+  }
+
+  handleSavePicture = (picture) => {
+    this.setState({picture: picture})
+    localStorage.setItem('picture', JSON.stringify(picture));
   }
 
 
@@ -455,7 +515,7 @@ class App extends React.Component {
       const current = history[history.length - 1];
       let edit = <button 
                   className="edit-mode"
-                  onClick={this.handleSave}>
+                  onClick={this.handleEditMode}>
                   Edit Resume
                   <Icon type={"create"}></Icon>
                 </button>
@@ -466,7 +526,7 @@ class App extends React.Component {
                   handleRedo={this.handleRedo}
                   handleSave={this.handleSave} 
                   handleShowSchoolForm={this.handleShowSchoolForm}
-                  handleShowJobForm={this.handleShowJobForm}
+                  handleShowModal={this.handleShowModal}
                 ></Footer>;
         edit = null;
       } 
@@ -492,9 +552,12 @@ class App extends React.Component {
             skills={current.skills}
             handleDeleteSchool={this.handleDeleteSchool}
             editMode={this.state.editMode}
+            handleShowModal={this.handleShowModal}
           />
           <Main 
             contacts={current.contacts}
+            picture={this.state.picture}
+            handleSavePicture={this.handleSavePicture}
             handleEditContacts={this.handleEditContacts}
             handleAddBullet={this.handleAddBullet} 
             handleDeleteBullet={this.handleDeleteBullet} 
@@ -506,11 +569,17 @@ class App extends React.Component {
             handleJobEdit={this.handleJobEdit}
             handleDeleteJob={this.handleDeleteJob}
             jobs={current.jobs}
-            handleShowJobForm={this.handleShowJobForm}
+            handleShowModal={this.handleShowModal}
             showJobForm={this.state.showJobForm}
             editMode={this.state.editMode}
           />
           </div>
+          <Modal 
+            handleSubmitSchool={this.handleSubmitSchool}
+            handleSubmitJob={this.handleSubmitJob}
+            handleRemoveModal={this.handleRemoveModal}
+            handleShowModal={this.handleShowModal}
+            show={this.state.showModal}/>
           {footer}
       </div>
     );

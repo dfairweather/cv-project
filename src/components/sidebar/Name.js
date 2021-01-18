@@ -3,7 +3,7 @@ import Editable from '../Editable';
 
 function Name(props) {
     return (
-      <div>
+      <div className="name-container">
         <div className="name">
           <Editable
             text={props.name.toUpperCase()}
@@ -13,11 +13,22 @@ function Name(props) {
         </div>
        
         <br></br>
-        <Editable
+        <div className="occupation-container" style={{paddingTop: '10px'}}>
+          <div style={{
+            width: "20px",
+            height: "10px",
+            background: "#454545",
+            display: 'inline-block',
+            marginRight: '20px'
+          }}></div>
+
+          <Editable
           text={props.occupation.toUpperCase()}
           handleEdit={props.handleEditOccupation}
           editMode={props.editMode}
-        />
+         />
+        </div>
+        
       </div>
     );
   }

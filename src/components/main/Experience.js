@@ -31,6 +31,7 @@ class Experience extends React.Component {
       return (
         <div className="experience">
         <Section name="Experience"/>
+        <div className="main-seporator"></div>
         {this.renderJobs()}
         </div>
       );

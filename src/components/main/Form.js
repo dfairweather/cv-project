@@ -4,23 +4,23 @@ function Form(props) {
             
             <label>
                 
-                <input type="text" name="title" placeholder="Job Title: "></input>
+                <input type="text" name="title" required placeholder="Job Title: "></input>
             </label>
             <label>
                 
-                <input type="text" name="company" placeholder="Company:"></input>
+                <input type="text" name="company" required placeholder="Company:"></input>
             </label>
             <label>
                 
-                <input type="text" name="start" placeholder="Start year:"></input>
+                <input type="text" name="start" required placeholder="Start year:"></input>
             </label>
             <label>
                 
-                <input type="text" name="end" placeholder="End Year:"></input>
+                <input type="text" name="end" required placeholder="End Year:"></input>
             </label>
             <label>
                 
-                <textarea type="text" name="description" placeholder="Description:"></textarea>
+                <textarea type="text" name="description" required placeholder="Description:"></textarea>
             </label>
             
             <input type="submit" name="submit" value="Submit"></input>

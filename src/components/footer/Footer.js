@@ -1,6 +1,4 @@
 import React from 'react';
-import UndoButton from '../UndoButton';
-import RedoButton from '../RedoButton';
 import Save from './Save';
 import Icon from '../Icon';
 
@@ -10,25 +8,25 @@ class Footer extends React.Component {
             <footer className='footer'>
                 <button 
                     className='add-school'
-                    onClick={this.props.handleShowSchoolForm}
+                    onClick={() => {this.props.handleShowModal("school")}}
                 >
                    Add New School
                     <Icon type={"add"} ></Icon>
                 </button>
                 <button onClick={this.props.handleUndo}>
                     
-                    <UndoButton ></UndoButton>
+                    <Icon type={"undo"} ></Icon>
                     Undo
                 </button>
                 <button onClick={this.props.handleRedo}>
                 Redo
                 
-                    <RedoButton ></RedoButton>
+                <Icon type={"redo"} ></Icon>
                 </button>
                 
                 <button 
                     className='add-job'
-                    onClick={this.props.handleShowJobForm}
+                    onClick={() => {this.props.handleShowModal("job")}}
                 >
                    Add New Job
                     <Icon type={"add"} ></Icon>

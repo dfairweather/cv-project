@@ -21,7 +21,7 @@ function Company(props) {
                 editMode={props.editMode}
             ></Editable>
             &nbsp;
-            <span style={{ fontWeight: '200' }}>to</span>
+            <span style={{ fontWeight: '400' }}>to</span>
             &nbsp;
             <Editable 
                 text={props.end}

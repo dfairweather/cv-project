@@ -5,6 +5,7 @@ function Profile(props) {
     return (
       <>
         <Section name="Profile"/>
+        <div className="main-seporator"></div>
         <Editable 
             text={props.profile}
             field = {"description"} 
